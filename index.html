@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FOUR n FOUR</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="site">
+      <svg class="filters" aria-hidden="true" focusable="false">
+        <filter
+          id="liquid"
+          x="-20%"
+          y="-40%"
+          width="140%"
+          height="180%"
+          color-interpolation-filters="sRGB"
+        >
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.0024 0.007"
+            numOctaves="2"
+            seed="3"
+            result="noise"
+          />
+          <feGaussianBlur in="noise" stdDeviation="2.4" result="smoothNoise" />
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="smoothNoise"
+            scale="16"
+            xChannelSelector="R"
+            yChannelSelector="G"
+            result="warp"
+            color-interpolation-filters="sRGB"
+          />
+          <feGaussianBlur in="warp" stdDeviation="1.1" result="warpBlur" />
+          <feFlood flood-color="#000000" result="paint" />
+          <feComposite in="paint" in2="warpBlur" operator="in" />
+        </filter>
+        <filter
+          id="liquid-hover"
+          x="-20%"
+          y="-40%"
+          width="140%"
+          height="180%"
+          color-interpolation-filters="sRGB"
+        >
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.0024 0.007"
+            numOctaves="2"
+            seed="3"
+            result="noise"
+          />
+          <feGaussianBlur in="noise" stdDeviation="2.4" result="smoothNoise" />
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="smoothNoise"
+            scale="16"
+            xChannelSelector="R"
+            yChannelSelector="G"
+            result="warp"
+            color-interpolation-filters="sRGB"
+          />
+          <feGaussianBlur in="warp" stdDeviation="1.1" result="warpBlur" />
+          <feFlood flood-color="#1727B3" result="paint" />
+          <feComposite in="paint" in2="warpBlur" operator="in" />
+        </filter>
+      </svg>
+
+      <header class="site-header">
+        <a class="logo-link" href="#home">
+          <img class="logo" src="/logo.png" alt="FOURnFOUR" />
+        </a>
+        <nav class="nav" aria-label="Primary">
+          <a href="#about">about</a>
+          <a href="#projects">projects</a>
+          <a href="#shop">shop</a>
+          <a href="#contact">contact</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="view view--home" id="home" aria-label="FOURnFOUR">
+          <div class="apple">
+            <div class="ripple-scope">
+              <figure>
+                <img src="/ideas.PNG" alt="Idea study" />
+              </figure>
+            </div>
+          </div>
+          <p class="clock" id="clock" aria-hidden="true"></p>
+        </section>
+
+        <section class="view view--about" id="about" hidden>
+          <div class="about-band ripple-scope">
+            <img src="/floating.png" alt="" />
+          </div>
+          <div class="about-copy">
+            <h1 class="display" data-text="about."><span class="display__hires"><span class="display__mark">about.</span></span></h1>
+            <p><em>fournfour</em> is a multidisciplinary studio working across identity, digital experiences, objects, spaces and visual culture. We move between disciplines rather than staying within one, following ideas wherever they need to go. A visual identity might become a website, an object might become a space, and a spatial idea might begin with an image, a conversation or something found by accident. Our practice is rooted in curiosity, research and experimentation. We think through making, and make through thinking collecting references, testing ideas and allowing the process to shape the outcome. Each project becomes its own small world: considered, curious and built from the connections between things that might not initially seem related.</p>
+          </div>
+          <p class="site-credit">© fournfour 2026</p>
+        </section>
+
+        <section class="view view--projects" id="projects" hidden>
+          <div class="work-shell">
+            <h1 class="display" data-text="projects."><span class="display__hires"><span class="display__mark">projects.</span></span></h1>
+            <div class="work-grid">
+              <article class="work-tile">
+                <img src="/colored_tanu.JPG" alt="Colored tanu" />
+              </article>
+              <article class="work-tile">
+                <img src="/mtt.jpeg" alt="MTT" />
+              </article>
+              <article class="work-tile">
+                <img src="/changing.GIF" alt="Changing" />
+              </article>
+              <article class="work-tile">
+                <img src="/bananaleaf.jpeg" alt="Banana leaf" />
+              </article>
+            </div>
+          </div>
+          <p class="site-credit">© fournfour 2026</p>
+        </section>
+
+        <section class="view view--shop" id="shop" hidden>
+          <h1 class="display" data-text="underconstruction">
+            <span class="display__hires"><span class="display__mark">underconstruction</span></span>
+          </h1>
+          <p class="site-credit">© fournfour 2026</p>
+        </section>
+
+        <section class="view view--contact" id="contact" hidden>
+          <div class="contact-cta">
+            <p class="contact-cta__prompt">want to work with us?</p>
+            <a class="contact-cta__link" href="#contact-panel">
+              <h2 class="display display--cta" data-text="get in touch">
+                <span class="display__hires"><span class="display__mark">get in touch</span></span>
+              </h2>
+              <span class="contact-cta__arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12 5v14M6 13l6 6 6-6"
+                    stroke="currentColor"
+                    stroke-width="1.35"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+            </a>
+          </div>
+          <div class="contact-panel" id="contact-panel">
+            <a class="contact-email" href="mailto:hello@fournfour.in">hello@fournfour.in</a>
+            <div class="contact-brand">
+              <div class="contact-mark-wrap ripple-scope">
+                <img class="contact-mark" src="/logo-white.png" alt="FOURnFOUR" />
+              </div>
+              <nav class="contact-socials" aria-label="Social">
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              </nav>
+            </div>
+            <p class="site-credit">© fournfour 2026</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
