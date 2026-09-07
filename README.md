@@ -1,29 +1,21 @@
 # FOUR n FOUR
 
-Local website for the studio. You do not need GitHub, hosting, or a remote push to view it.
+Static studio website. No npm or Vite — open `index.html` through any static server.
 
-## Run it on your computer
+## View it locally
 
-You need [Node.js 18 or newer](https://nodejs.org/). Then, in a terminal:
-
-```bash
-cd C:\Users\prpat\OneDrive\Documents\GitHub\4n4
-npm install
-npm run dev
-```
-
-Vite will start a local server at **http://127.0.0.1:5173** and should open it in your browser. Leave the terminal window open while you look at the site. Press `Ctrl+C` to stop it.
-
-## Other local commands
+From this folder, serve the files (ES modules and shader `fetch` need a local server, not a raw `file://` path):
 
 ```bash
-npm run build
+npx --yes serve .
 ```
 
-Writes a production build into the `dist` folder.
+Or use VS Code / Cursor Live Server, Python `python -m http.server`, or any other static host. Then open the URL it prints (often `http://localhost:3000` or `http://localhost:8000`).
 
-```bash
-npm run preview
-```
+## GitHub Pages
 
-Serves that build locally at **http://127.0.0.1:4173**.
+This repo is the site root. Point Pages at the `main` branch `/` (or your custom domain). All asset URLs are relative.
+
+## Restore a bundler later
+
+There is no `package.json`. The site is plain HTML, CSS, and JS in `src/`.

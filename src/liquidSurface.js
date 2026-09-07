@@ -1,5 +1,13 @@
-import vertSrc from "./shaders/ripple.vert?raw";
-import fragSrc from "./shaders/ripple.frag?raw";
+async function loadShaders() {
+  const [vertRes, fragRes] = await Promise.all([
+    fetch("src/shaders/ripple.vert"),
+    fetch("src/shaders/ripple.frag"),
+  ]);
+  if (!vertRes.ok || !fragRes.ok) {
+    throw new Error("shader fetch failed");
+  }
+  return Promise.all([vertRes.text(), fragRes.text()]);
+}
 
 const CONFIG = {
   SPEED: 1.04,
@@ -88,7 +96,7 @@ function drawFittedImage(ctx, img, rect, fit) {
   ctx.restore();
 }
 
-function createLayer(host) {
+function createLayer(host, vertSrc, fragSrc) {
   const canvas = document.createElement("canvas");
   canvas.className = "liquid-canvas";
   canvas.setAttribute("aria-hidden", "true");
@@ -413,13 +421,21 @@ function createLayer(host) {
   return { resize: invalidate, invalidate, destroy };
 }
 
-export function initLiquidSurface() {
+export async function initLiquidSurface() {
   if (shouldSkip()) {
     return { invalidate() {}, destroy() {} };
   }
 
+  let vertSrc;
+  let fragSrc;
+  try {
+    [vertSrc, fragSrc] = await loadShaders();
+  } catch {
+    return { invalidate() {}, destroy() {} };
+  }
+
   const hosts = [...document.querySelectorAll(".ripple-scope")];
-  const layers = hosts.map(createLayer).filter(Boolean);
+  const layers = hosts.map((host) => createLayer(host, vertSrc, fragSrc)).filter(Boolean);
 
   const observer = new ResizeObserver(() => {
     layers.forEach((layer) => layer.invalidate());

@@ -1,4 +1,3 @@
-import "./style.css";
 import { initLiquidSurface } from "./liquidSurface.js";
 
 const views = ["home", "about", "projects", "shop", "contact"];
@@ -120,5 +119,5 @@ tickClock();
 window.setInterval(tickClock, 1000);
 
 initMailtoCopy();
-const liquid = initLiquidSurface();
+const liquid = await initLiquidSurface();
 showView(currentView());
