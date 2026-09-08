@@ -56,12 +56,16 @@ function tickClock() {
   clock.textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
 }
 
+const copiedTimers = new WeakMap();
+
 function copyText(text) {
+  // Sync copy first so it finishes during the click, before mailto navigation.
+  const copied = copyFallback(text);
   if (navigator.clipboard?.writeText) {
-    navigator.clipboard.writeText(text).catch(() => copyFallback(text));
-    return;
+    navigator.clipboard.writeText(text).catch(() => {
+      if (!copied) copyFallback(text);
+    });
   }
-  copyFallback(text);
 }
 
 function copyFallback(text) {
@@ -72,20 +76,49 @@ function copyFallback(text) {
   input.style.left = "-9999px";
   document.body.appendChild(input);
   input.select();
+  let ok = false;
   try {
-    document.execCommand("copy");
+    ok = document.execCommand("copy");
   } catch {
-    /* ignore */
+    ok = false;
   }
   input.remove();
+  return ok;
+}
+
+function mailtoLikelyBlocked() {
+  if (typeof window.cursorBrowser !== "undefined") return true;
+  const ua = navigator.userAgent || "";
+  // Cursor / VS Code Simple Browser and other Electron shells: mailto can
+  // trip antivirus sandbox prompts instead of opening a mail client.
+  return /Electron|\bCursor\/|\bVSCode\b| Code\//i.test(ua);
+}
+
+function flashCopied(link) {
+  const prev = copiedTimers.get(link);
+  if (prev) window.clearTimeout(prev);
+  const restoreLabel = link.getAttribute("aria-label");
+  link.classList.add("is-copied");
+  link.setAttribute("aria-label", "Copied hello@fournfour.in");
+  copiedTimers.set(
+    link,
+    window.setTimeout(() => {
+      link.classList.remove("is-copied");
+      if (restoreLabel) link.setAttribute("aria-label", restoreLabel);
+      copiedTimers.delete(link);
+    }, 1500)
+  );
 }
 
 function initMailtoCopy() {
   document.querySelectorAll(".contact-email").forEach((link) => {
-    link.addEventListener("click", () => {
+    link.addEventListener("click", (event) => {
       const href = link.getAttribute("href") || "";
       const address = decodeURIComponent(href.replace(/^mailto:/i, "")).split("?")[0];
       if (address) copyText(address);
+      flashCopied(link);
+      // Keep native mailto for real browsers; skip it in the IDE sandbox.
+      if (mailtoLikelyBlocked()) event.preventDefault();
     });
   });
 }

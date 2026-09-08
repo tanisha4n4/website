@@ -584,6 +584,20 @@ body[data-view="contact"] .view--contact {
   opacity: 0.72;
 }
 
+.contact-email.is-copied {
+  color: transparent;
+}
+
+.contact-email.is-copied::after {
+  content: "copied";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  pointer-events: none;
+}
+
 .contact-brand {
   flex: 1 1 auto;
   display: flex;
