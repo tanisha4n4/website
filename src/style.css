@@ -48,8 +48,8 @@ body {
   --logo-h: calc(35 * var(--u));
   --nav-size: calc(15 * var(--u));
   --nav-gap: calc(42 * var(--u));
-  --apple-w: calc(492.8 * var(--home-u));
-  --apple-h: calc(650.496 * var(--home-u));
+  --apple-w: calc(250 * var(--home-u));
+  --apple-h: calc(330 * var(--home-u));
   --clock-h: calc(95 * var(--u));
   --contact-min: calc(700 * var(--u));
   --email-size: calc(40 * var(--u));
@@ -765,7 +765,7 @@ body[data-view="contact"] .clock {
     --logo-h: calc(45 * var(--m));
     --m-clock: calc(46 * var(--m));
     --m-pad: calc(20 * var(--m));
-    --apple-w: min(358.4px, calc(100vw - 24px));
+    --apple-w: min(150px, calc(100vw - 24px));
     --apple-h: calc(var(--apple-w) * 412.05 / 320);
   }
 
@@ -842,7 +842,7 @@ body[data-view="contact"] .clock {
     min-width: calc(132 * var(--m));
     margin: 0;
     padding: calc(16 * var(--m)) calc(18 * var(--m));
-    background: var(--paper);
+    background: #efece7;
     border-radius: calc(8 * var(--m));
     box-shadow: 0 calc(10 * var(--m)) calc(28 * var(--m)) rgba(0, 0, 0, 0.08);
     z-index: 2;
