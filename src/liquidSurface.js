@@ -25,10 +25,11 @@ const PAPER = "#f7f4ef";
 const BLUE = "#1727B3";
 
 function shouldSkip() {
-  return (
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
-    window.matchMedia("(pointer: coarse)").matches
-  );
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function isCoarsePointer() {
+  return window.matchMedia("(pointer: coarse)").matches;
 }
 
 function compile(gl, type, source) {
@@ -96,7 +97,19 @@ function drawFittedImage(ctx, img, rect, fit) {
   ctx.restore();
 }
 
-function createLayer(host, vertSrc, fragSrc) {
+function pointInElement(el, clientX, clientY) {
+  const box = el.getBoundingClientRect();
+  return clientX >= box.left && clientX <= box.right && clientY >= box.top && clientY <= box.bottom;
+}
+
+function touchById(list, id) {
+  for (let i = 0; i < list.length; i += 1) {
+    if (list[i].identifier === id) return list[i];
+  }
+  return null;
+}
+
+function createLayer(host, vertSrc, fragSrc, touchMode) {
   const canvas = document.createElement("canvas");
   canvas.className = "liquid-canvas";
   canvas.setAttribute("aria-hidden", "true");
@@ -385,6 +398,47 @@ function createLayer(host, vertSrc, fragSrc) {
     start();
   }
 
+  const touchTarget = img || host;
+  let activeTouchId = null;
+  let trackingTouch = false;
+
+  function onTouchStart(event) {
+    if (activeTouchId !== null) return;
+    const touch = event.changedTouches[0];
+    if (!touch) return;
+    activeTouchId = touch.identifier;
+    trackingTouch = true;
+    onPointerEnter({ clientX: touch.clientX, clientY: touch.clientY });
+  }
+
+  function onTouchMove(event) {
+    if (activeTouchId === null) return;
+    const touch = touchById(event.touches, activeTouchId);
+    if (!touch) return;
+    const inside = pointInElement(touchTarget, touch.clientX, touch.clientY);
+    if (!inside) {
+      if (trackingTouch) {
+        trackingTouch = false;
+        onPointerLeave();
+      }
+      return;
+    }
+    if (!trackingTouch) {
+      trackingTouch = true;
+      onPointerEnter({ clientX: touch.clientX, clientY: touch.clientY });
+      return;
+    }
+    onPointerMove({ clientX: touch.clientX, clientY: touch.clientY });
+  }
+
+  function onTouchEnd(event) {
+    if (activeTouchId === null) return;
+    if (!touchById(event.changedTouches, activeTouchId)) return;
+    activeTouchId = null;
+    trackingTouch = false;
+    onPointerLeave();
+  }
+
   function onImageReady() {
     resize();
     capture();
@@ -403,16 +457,31 @@ function createLayer(host, vertSrc, fragSrc) {
     destroyed = true;
     running = false;
     if (frameId) window.cancelAnimationFrame(frameId);
-    host.removeEventListener("pointerenter", onPointerEnter);
-    host.removeEventListener("pointerleave", onPointerLeave);
-    host.removeEventListener("pointermove", onPointerMove);
+    if (touchMode) {
+      touchTarget.removeEventListener("touchstart", onTouchStart);
+      touchTarget.removeEventListener("touchmove", onTouchMove);
+      touchTarget.removeEventListener("touchend", onTouchEnd);
+      touchTarget.removeEventListener("touchcancel", onTouchEnd);
+    } else {
+      host.removeEventListener("pointerenter", onPointerEnter);
+      host.removeEventListener("pointerleave", onPointerLeave);
+      host.removeEventListener("pointermove", onPointerMove);
+    }
     img?.removeEventListener("load", onImageReady);
     canvas.remove();
   }
 
-  host.addEventListener("pointerenter", onPointerEnter);
-  host.addEventListener("pointerleave", onPointerLeave);
-  host.addEventListener("pointermove", onPointerMove, { passive: true });
+  if (touchMode) {
+    const passive = { passive: true };
+    touchTarget.addEventListener("touchstart", onTouchStart, passive);
+    touchTarget.addEventListener("touchmove", onTouchMove, passive);
+    touchTarget.addEventListener("touchend", onTouchEnd, passive);
+    touchTarget.addEventListener("touchcancel", onTouchEnd, passive);
+  } else {
+    host.addEventListener("pointerenter", onPointerEnter);
+    host.addEventListener("pointerleave", onPointerLeave);
+    host.addEventListener("pointermove", onPointerMove, { passive: true });
+  }
   img?.addEventListener("load", onImageReady);
 
   resize();
@@ -434,8 +503,9 @@ export async function initLiquidSurface() {
     return { invalidate() {}, destroy() {} };
   }
 
+  const touchMode = isCoarsePointer();
   const hosts = [...document.querySelectorAll(".ripple-scope")];
-  const layers = hosts.map((host) => createLayer(host, vertSrc, fragSrc)).filter(Boolean);
+  const layers = hosts.map((host) => createLayer(host, vertSrc, fragSrc, touchMode)).filter(Boolean);
 
   const observer = new ResizeObserver(() => {
     layers.forEach((layer) => layer.invalidate());
