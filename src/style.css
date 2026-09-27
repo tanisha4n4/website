@@ -40,7 +40,7 @@ body {
   --home-u: min(
     1.333px,
     calc(100vw / var(--frame)),
-    calc((100dvh - (170 * var(--u)) - 80px) / 412)
+    calc((100dvh - (170 * var(--u)) - 80px) / 580.8)
   );
   --edge: calc(45 * var(--u));
   --header-h: calc(75 * var(--u));
@@ -48,8 +48,8 @@ body {
   --logo-h: calc(35 * var(--u));
   --nav-size: calc(15 * var(--u));
   --nav-gap: calc(42 * var(--u));
-  --apple-w: calc(312 * var(--home-u));
-  --apple-h: calc(412 * var(--home-u));
+  --apple-w: calc(440 * var(--home-u));
+  --apple-h: calc(580.8 * var(--home-u));
   --clock-h: calc(95 * var(--u));
   --contact-min: calc(700 * var(--u));
   --email-size: calc(40 * var(--u));
@@ -276,7 +276,8 @@ body[data-view="contact"] .view--contact {
   color: #000000;
 }
 
-.home-note__lead {
+.home-note__lead,
+.home-note__name {
   display: block;
   margin-bottom: 1lh;
 }
@@ -287,7 +288,7 @@ body[data-view="contact"] .view--contact {
   margin: 0;
   display: grid;
   place-items: center;
-  font-size: 6px;
+  font-size: calc(8 * var(--home-u));
   font-weight: 600;
   letter-spacing: 0.04em;
 }
@@ -649,7 +650,7 @@ body[data-view="contact"] .clock {
   justify-content: center;
   min-width: 0;
   min-height: 0;
-  padding: calc(110 * var(--u)) var(--edge) calc(52 * var(--u));
+  padding: calc(110 * var(--u)) var(--edge) calc(12 * var(--u));
 }
 
 .contact-mark-wrap {
@@ -736,11 +737,11 @@ body[data-view="contact"] .clock {
 }
 
 .contact-panel .site-credit {
-  position: absolute;
-  left: 50%;
-  bottom: calc(22 * var(--u));
+  position: static;
   z-index: 2;
-  transform: translateX(-50%);
+  flex: 0 0 auto;
+  margin-top: calc(24 * var(--u));
+  padding-bottom: calc(22 * var(--u));
   color: #ffffff;
   white-space: nowrap;
 }
@@ -764,8 +765,8 @@ body[data-view="contact"] .clock {
     --logo-h: calc(45 * var(--m));
     --m-clock: calc(46 * var(--m));
     --m-pad: calc(20 * var(--m));
-    --apple-w: 183px;
-    --apple-h: 235px;
+    --apple-w: min(320px, calc(100vw - 48px));
+    --apple-h: calc(var(--apple-w) * 188 / 146);
   }
 
   .site-header {
@@ -856,11 +857,17 @@ body[data-view="contact"] .clock {
     padding: calc(4 * var(--m)) 0;
   }
 
+  .apple .ripple-scope {
+    padding: 12px;
+  }
+
   .home-note {
-    top: 468px;
-    /* 289px box, nudged left of center on a 390px screen (centered would start near 50px). */
-    left: 32px;
+    position: relative;
+    top: auto;
+    left: auto;
     width: 289px;
+    max-width: calc(100vw - 40px);
+    margin: 12px auto 8px;
     font-size: 7px;
   }
 
@@ -874,12 +881,14 @@ body[data-view="contact"] .clock {
     height: calc(var(--m-clock) + env(safe-area-inset-bottom, 0px));
     padding-bottom: env(safe-area-inset-bottom, 0px);
     background: var(--paper);
-    font-size: 6px;
+    font-size: 7px;
     letter-spacing: 0.06em;
   }
 
   body[data-view="home"] .view--home {
     box-sizing: border-box;
+    height: auto;
+    min-height: calc(100dvh - var(--header-h));
     padding-bottom: var(--m-clock);
   }
 
@@ -940,14 +949,20 @@ body[data-view="contact"] .clock {
     aspect-ratio: auto;
   }
 
-  .view--about .site-credit,
+  .view--about .site-credit {
+    padding-bottom: 12px;
+  }
+
   .view--projects .site-credit {
     padding-bottom: calc(var(--m-clock) + calc(16 * var(--m)));
   }
 
-  .view--shop .site-credit,
-  .contact-panel .site-credit {
+  .view--shop .site-credit {
     bottom: calc(var(--m-clock) + calc(12 * var(--m)));
+  }
+
+  body[data-view="home"] .contact-panel .site-credit {
+    padding-bottom: calc(var(--m-clock) + 14px);
   }
 
   .contact-email {
