@@ -264,9 +264,9 @@ body[data-view="contact"] .view--contact {
 
 .home-note {
   position: absolute;
-  /* Bottom edge matches the homepage image. Top stays auto so line wrapping cannot shift that edge. */
+  /* Bottom edge sits 70px below the homepage image. Top stays auto so line wrapping cannot shift that edge. */
   top: auto;
-  bottom: calc((100dvh - var(--header-h) + var(--clock-h) - var(--apple-h)) / 2);
+  bottom: calc((100dvh - var(--header-h) + var(--clock-h) - var(--apple-h)) / 2 - 70px);
   /* 60px from the viewport edge (100vw includes the scrollbar). Width stays 289px when it fits. */
   right: calc(60px - (100vw - 100%));
   width: min(289px, calc(100vw - 60px));
@@ -768,7 +768,7 @@ body[data-view="contact"] .clock {
     --logo-h: calc(45 * var(--m));
     --m-clock: calc(46 * var(--m));
     --m-pad: calc(20 * var(--m));
-    --apple-w: min(300px, calc(100vw - 24px));
+    --apple-w: 120px;
     --apple-h: calc(var(--apple-w) * 412.05 / 320);
   }
 
