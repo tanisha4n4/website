@@ -40,8 +40,8 @@ body {
   --logo-h: calc(35 * var(--u));
   --nav-size: calc(15 * var(--u));
   --nav-gap: calc(42 * var(--u));
-  --apple-w: calc(250 * var(--u));
-  --apple-h: calc(330 * var(--u));
+  --apple-w: 250px;
+  --apple-h: 330px;
   --clock-h: calc(95 * var(--u));
   --contact-min: calc(700 * var(--u));
   --email-size: calc(40 * var(--u));
@@ -249,15 +249,36 @@ body[data-view="contact"] .view--contact {
   object-fit: cover;
 }
 
+.home-note {
+  position: absolute;
+  top: 515px;
+  left: 1197px;
+  width: 188px;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  font-size: 8px;
+  font-weight: 400;
+  line-height: normal;
+  text-align: justify;
+  color: #000000;
+}
+
 .clock {
   flex: 0 0 var(--clock-h);
   height: var(--clock-h);
   margin: 0;
   display: grid;
   place-items: center;
-  font-size: calc(13 * var(--u));
+  font-size: calc(13 * var(--u) - 2px);
   font-weight: 600;
   letter-spacing: 0.04em;
+}
+
+body[data-view="about"] .clock,
+body[data-view="projects"] .clock,
+body[data-view="shop"] .clock,
+body[data-view="contact"] .clock {
+  display: none;
 }
 
 .view--about {
@@ -725,6 +746,8 @@ body[data-view="contact"] .view--contact {
     --logo-h: calc(45 * var(--m));
     --m-clock: calc(46 * var(--m));
     --m-pad: calc(20 * var(--m));
+    --apple-w: 146px;
+    --apple-h: 188px;
   }
 
   .site-header {
@@ -814,6 +837,13 @@ body[data-view="contact"] .view--contact {
     padding: calc(4 * var(--m)) 0;
   }
 
+  .home-note {
+    top: 468px;
+    left: 20px;
+    width: 120px;
+    font-size: 7px;
+  }
+
   .clock {
     position: fixed;
     left: 0;
@@ -824,7 +854,7 @@ body[data-view="contact"] .view--contact {
     height: calc(var(--m-clock) + env(safe-area-inset-bottom, 0px));
     padding-bottom: env(safe-area-inset-bottom, 0px);
     background: var(--paper);
-    font-size: calc(14 * var(--m));
+    font-size: calc(14 * var(--m) - 2px);
     letter-spacing: 0.06em;
   }
 

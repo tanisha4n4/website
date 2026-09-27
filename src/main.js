@@ -18,8 +18,9 @@ function closeMobileNav() {
   navToggle?.setAttribute("aria-expanded", "false");
 }
 
-function placeClock() {
+function placeClock(view = currentView()) {
   if (!clock || !homeView || !site) return;
+  clock.hidden = view !== "home";
   if (mobileQuery.matches) {
     if (clock.parentElement !== site) site.appendChild(clock);
     return;
@@ -52,6 +53,7 @@ function showView(id) {
   });
 
   document.body.dataset.view = view;
+  placeClock(view);
   closeMobileNav();
   window.scrollTo(0, 0);
 
