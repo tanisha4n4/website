@@ -34,14 +34,22 @@ body {
 :root {
   --frame: 1440;
   --u: clamp(0.85px, calc(100vw / 1440), 1.333px);
+  /* 1440px homepage composition. Width keeps the reference proportions;
+     height shrinks the same unit when the viewport is too short for the
+     image, its padding, the header, and the clock. */
+  --home-u: min(
+    1.333px,
+    calc(100vw / var(--frame)),
+    calc((100dvh - (170 * var(--u)) - 80px) / 429)
+  );
   --edge: calc(45 * var(--u));
   --header-h: calc(75 * var(--u));
   --logo-w: calc(195 * var(--u));
   --logo-h: calc(35 * var(--u));
   --nav-size: calc(15 * var(--u));
   --nav-gap: calc(42 * var(--u));
-  --apple-w: 250px;
-  --apple-h: 330px;
+  --apple-w: calc(325 * var(--home-u));
+  --apple-h: calc(429 * var(--home-u));
   --clock-h: calc(95 * var(--u));
   --contact-min: calc(700 * var(--u));
   --email-size: calc(40 * var(--u));
@@ -202,6 +210,10 @@ body[data-view="home"] .contact-cta {
   display: none;
 }
 
+body[data-view="home"] .contact-email {
+  display: none;
+}
+
 body[data-view="contact"] .view--contact {
   flex: 1 1 auto;
   min-height: calc(100dvh - var(--header-h));
@@ -251,16 +263,21 @@ body[data-view="contact"] .view--contact {
 
 .home-note {
   position: absolute;
-  top: 515px;
-  left: 1197px;
-  width: 188px;
+  top: calc(515 * var(--home-u));
+  left: calc(1197 * var(--home-u));
+  width: calc(188 * var(--home-u));
   margin: 0;
   font-family: Arial, sans-serif;
-  font-size: 8px;
+  font-size: calc(8 * var(--home-u));
   font-weight: 400;
   line-height: normal;
   text-align: justify;
   color: #000000;
+}
+
+.home-note__lead {
+  display: block;
+  margin-bottom: 1lh;
 }
 
 .clock {
@@ -824,6 +841,7 @@ body[data-view="contact"] .clock {
     margin: 0;
     padding: calc(16 * var(--m)) calc(18 * var(--m));
     background: var(--paper);
+    border-radius: calc(8 * var(--m));
     box-shadow: 0 calc(10 * var(--m)) calc(28 * var(--m)) rgba(0, 0, 0, 0.08);
     z-index: 2;
   }
