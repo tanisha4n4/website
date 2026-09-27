@@ -17,7 +17,7 @@ const CONFIG = {
   MAX_RIPPLES: 6,
   FREQUENCY: 24,
   REF_SIZE: 480,
-  REF_HEIGHT: 80,
+  REF_HEIGHT: 100,
 };
 
 const SHADER_SLOTS = 8;

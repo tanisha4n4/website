@@ -48,8 +48,8 @@ body {
   --logo-h: calc(35 * var(--u));
   --nav-size: calc(15 * var(--u));
   --nav-gap: calc(42 * var(--u));
-  --apple-w: calc(250 * var(--home-u));
-  --apple-h: calc(330 * var(--home-u));
+  --apple-w: calc(275 * var(--home-u));
+  --apple-h: calc(363 * var(--home-u));
   --clock-h: calc(95 * var(--u));
   --contact-min: calc(700 * var(--u));
   --email-size: calc(40 * var(--u));
@@ -189,6 +189,7 @@ main {
 }
 
 .view--home {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -263,7 +264,9 @@ body[data-view="contact"] .view--contact {
 
 .home-note {
   position: absolute;
-  top: calc(515 * var(--home-u));
+  /* Bottom edge matches the homepage image. Top stays auto so line wrapping cannot shift that edge. */
+  top: auto;
+  bottom: calc((100dvh - var(--header-h) + var(--clock-h) - var(--apple-h)) / 2);
   /* 60px from the viewport edge (100vw includes the scrollbar). Width stays 289px when it fits. */
   right: calc(60px - (100vw - 100%));
   width: min(289px, calc(100vw - 60px));
@@ -765,7 +768,7 @@ body[data-view="contact"] .clock {
     --logo-h: calc(45 * var(--m));
     --m-clock: calc(46 * var(--m));
     --m-pad: calc(20 * var(--m));
-    --apple-w: min(150px, calc(100vw - 24px));
+    --apple-w: min(300px, calc(100vw - 24px));
     --apple-h: calc(var(--apple-w) * 412.05 / 320);
   }
 
@@ -863,7 +866,8 @@ body[data-view="contact"] .clock {
 
   .home-note {
     position: absolute;
-    top: 470px;
+    top: calc((100dvh - var(--header-h) - var(--m-clock) + var(--apple-h)) / 2 + 70px);
+    bottom: auto;
     right: 0;
     left: 0;
     width: 120px;
