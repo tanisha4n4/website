@@ -48,8 +48,8 @@ body {
   --logo-h: calc(35 * var(--u));
   --nav-size: calc(15 * var(--u));
   --nav-gap: calc(42 * var(--u));
-  --apple-w: calc(440 * var(--home-u));
-  --apple-h: calc(580.8 * var(--home-u));
+  --apple-w: calc(492.8 * var(--home-u));
+  --apple-h: calc(650.496 * var(--home-u));
   --clock-h: calc(95 * var(--u));
   --contact-min: calc(700 * var(--u));
   --email-size: calc(40 * var(--u));
@@ -264,12 +264,12 @@ body[data-view="contact"] .view--contact {
 .home-note {
   position: absolute;
   top: calc(515 * var(--home-u));
-  /* 289 wide at the 1440 reference, grown left so the right edge stays at 1385. */
-  left: calc(1096 * var(--home-u));
-  width: calc(289 * var(--home-u));
+  /* 60px from the viewport edge (100vw includes the scrollbar). Width stays 289px when it fits. */
+  right: calc(60px - (100vw - 100%));
+  width: min(289px, calc(100vw - 60px));
   margin: 0;
   font-family: Arial, sans-serif;
-  font-size: calc(8 * var(--home-u));
+  font-size: 8px;
   font-weight: 400;
   line-height: normal;
   text-align: justify;
@@ -765,8 +765,8 @@ body[data-view="contact"] .clock {
     --logo-h: calc(45 * var(--m));
     --m-clock: calc(46 * var(--m));
     --m-pad: calc(20 * var(--m));
-    --apple-w: min(320px, calc(100vw - 48px));
-    --apple-h: calc(var(--apple-w) * 188 / 146);
+    --apple-w: min(358.4px, calc(100vw - 24px));
+    --apple-h: calc(var(--apple-w) * 412.05 / 320);
   }
 
   .site-header {
@@ -862,12 +862,13 @@ body[data-view="contact"] .clock {
   }
 
   .home-note {
-    position: relative;
-    top: auto;
-    left: auto;
-    width: 289px;
-    max-width: calc(100vw - 40px);
-    margin: 12px auto 8px;
+    position: absolute;
+    top: 470px;
+    right: 0;
+    left: 0;
+    width: 120px;
+    max-width: 120px;
+    margin: 0 auto;
     font-size: 7px;
   }
 
