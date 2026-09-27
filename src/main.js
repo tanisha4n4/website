@@ -7,6 +7,25 @@ const logoLink = document.querySelector(".logo-link");
 const clock = document.getElementById("clock");
 const contactCta = document.querySelector(".contact-cta__link");
 const contactPanel = document.getElementById("contact-panel");
+const header = document.querySelector(".site-header");
+const navToggle = document.querySelector(".nav-toggle");
+const homeView = document.getElementById("home");
+const site = document.getElementById("site");
+const mobileQuery = window.matchMedia("(max-width: 720px)");
+
+function closeMobileNav() {
+  header?.classList.remove("is-nav-open");
+  navToggle?.setAttribute("aria-expanded", "false");
+}
+
+function placeClock() {
+  if (!clock || !homeView || !site) return;
+  if (mobileQuery.matches) {
+    if (clock.parentElement !== site) site.appendChild(clock);
+    return;
+  }
+  if (clock.parentElement !== homeView) homeView.appendChild(clock);
+}
 
 function currentView() {
   const raw = window.location.hash.slice(1);
@@ -33,6 +52,7 @@ function showView(id) {
   });
 
   document.body.dataset.view = view;
+  closeMobileNav();
   window.scrollTo(0, 0);
 
   liquid.invalidate();
@@ -134,6 +154,30 @@ logoLink?.addEventListener("click", (event) => {
   event.preventDefault();
   openView("home");
 });
+
+navToggle?.addEventListener("click", () => {
+  if (!mobileQuery.matches) return;
+  const open = !header.classList.contains("is-nav-open");
+  header.classList.toggle("is-nav-open", open);
+  navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+});
+
+document.addEventListener("click", (event) => {
+  if (!mobileQuery.matches || !header?.classList.contains("is-nav-open")) return;
+  if (header.contains(event.target)) return;
+  closeMobileNav();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeMobileNav();
+});
+
+mobileQuery.addEventListener("change", () => {
+  if (!mobileQuery.matches) closeMobileNav();
+  placeClock();
+});
+
+placeClock();
 
 contactCta?.addEventListener("click", (event) => {
   event.preventDefault();
