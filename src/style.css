@@ -105,8 +105,8 @@ a {
 
 @media (min-width: 721px) {
   .nav {
-    /* Wordmark ink ends 364/4864 of the logo width below header center. */
-    transform: translateY(calc(var(--logo-w) * 364 / 4864 - var(--nav-size) * 0.4111));
+    /* Prior wordmark offset sat too low; lift the links 12px. */
+    transform: translateY(calc(var(--logo-w) * 364 / 4864 - var(--nav-size) * 0.4111 - 12px));
   }
 }
 
@@ -826,7 +826,7 @@ body[data-view="contact"] .clock {
     line-height: 1;
     text-transform: lowercase;
     cursor: pointer;
-    transform: translateY(calc(var(--logo-w) * 364 / 4864 - 15 * var(--m) * 0.4111));
+    transform: translateY(calc(var(--logo-w) * 364 / 4864 - 15 * var(--m) * 0.4111 - 12px));
   }
 
   .nav-toggle:hover,
