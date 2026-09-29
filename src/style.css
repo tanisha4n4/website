@@ -103,6 +103,12 @@ a {
   gap: var(--nav-gap);
 }
 
+@media (min-width: 721px) {
+  .nav {
+    transform: translateY(10px);
+  }
+}
+
 .nav a {
   font-size: var(--nav-size);
   font-weight: 400;
@@ -846,6 +852,7 @@ body[data-view="contact"] .clock {
     margin: 0;
     padding: calc(16 * var(--m)) calc(18 * var(--m));
     background: #efece7;
+    transform: translateY(10px);
     border-radius: calc(8 * var(--m));
     box-shadow: 0 calc(10 * var(--m)) calc(28 * var(--m)) rgba(0, 0, 0, 0.08);
     z-index: 2;
