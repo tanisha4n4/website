@@ -274,9 +274,9 @@ body[data-view="contact"] .view--contact {
   /* Bottom edge sits 70px below the homepage image. Top stays auto so line wrapping cannot shift that edge. */
   top: auto;
   bottom: calc((100dvh - var(--header-h) + var(--clock-h) - var(--apple-h)) / 2 - 70px);
-  /* 60px from the viewport edge (100vw includes the scrollbar). Width stays 289px when it fits. */
+  /* 60px from the viewport edge (100vw includes the scrollbar). Width stays 295px when it fits. */
   right: calc(60px - (100vw - 100%));
-  width: min(289px, calc(100vw - 60px));
+  width: min(295px, calc(100vw - 60px));
   margin: 0;
   font-family: Arial, sans-serif;
   font-size: 8px;
