@@ -3,7 +3,7 @@
   src: url("../fonts/barlowfold.otf") format("opentype");
   font-weight: 400 800;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 *,
@@ -105,7 +105,7 @@ a {
 
 @media (min-width: 721px) {
   .nav {
-    transform: translateY(10px);
+    transform: translateY(30px);
   }
 }
 
@@ -443,6 +443,7 @@ body[data-view="contact"] .clock {
   height: 1.15em;
   overflow: hidden;
   font-family: "Barlow Fold", Inter, sans-serif;
+  font-synthesis: none;
   font-size: clamp(3.2rem, 7vw, 5.4rem);
   font-weight: 700;
   line-height: 1;
@@ -852,7 +853,7 @@ body[data-view="contact"] .clock {
     margin: 0;
     padding: calc(16 * var(--m)) calc(18 * var(--m));
     background: #efece7;
-    transform: translateY(10px);
+    transform: translateY(30px);
     border-radius: calc(8 * var(--m));
     box-shadow: 0 calc(10 * var(--m)) calc(28 * var(--m)) rgba(0, 0, 0, 0.08);
     z-index: 2;
@@ -904,9 +905,9 @@ body[data-view="contact"] .clock {
   }
 
   .about-band {
-    flex-basis: calc(200 * var(--m));
+    flex-basis: calc(280 * var(--m));
     width: 100%;
-    height: calc(200 * var(--m));
+    height: calc(280 * var(--m));
   }
 
   .about-copy,
@@ -919,7 +920,7 @@ body[data-view="contact"] .clock {
 
   .about-copy {
     gap: calc(16 * var(--m));
-    margin-top: calc(18 * var(--m));
+    margin-top: calc(42 * var(--m));
     padding-inline: var(--m-pad);
   }
 
