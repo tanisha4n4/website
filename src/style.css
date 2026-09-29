@@ -105,8 +105,8 @@ a {
 
 @media (min-width: 721px) {
   .nav {
-    /* Centered in the header; shift by half the height difference so the line box meets the logo box, then 4px up. */
-    transform: translateY(calc((var(--logo-w) * 1354 / 4864 - var(--nav-size)) / 2 - 4px));
+    /* Centered in the header; shift by half the height difference so the line box meets the logo box, then 10px up. */
+    transform: translateY(calc((var(--logo-w) * 1354 / 4864 - var(--nav-size)) / 2 - 10px));
   }
 }
 
