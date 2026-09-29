@@ -21,7 +21,7 @@ const CONFIG = {
 };
 
 const SHADER_SLOTS = 8;
-const PAPER = "#f7f4ef";
+const PAPER = "#ffffff";
 const BLUE = "#1727B3";
 
 function shouldSkip() {
@@ -167,7 +167,7 @@ function createLayer(host, vertSrc, fragSrc, touchMode) {
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([247, 244, 239, 255]));
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([255, 255, 255, 255]));
 
   const captureCanvas = document.createElement("canvas");
   const captureCtx = captureCanvas.getContext("2d", { alpha: false });

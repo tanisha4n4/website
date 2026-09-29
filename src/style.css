@@ -59,7 +59,7 @@ body {
   --about-gap: calc(20 * var(--u));
   --contact-cta: calc(700 * var(--u));
   --work-gap: calc(20 * var(--u));
-  --paper: #f7f4ef;
+  --paper: #ffffff;
   --blue: #1727B3;
   --cobalt: #1727B3;
 }
@@ -291,7 +291,7 @@ body[data-view="contact"] .view--contact {
   margin: 0;
   display: grid;
   place-items: center;
-  font-size: calc(8 * var(--home-u));
+  font-size: 8px;
   font-weight: 600;
   letter-spacing: 0.04em;
 }
@@ -381,7 +381,7 @@ body[data-view="contact"] .clock {
   margin: 0;
   max-width: 100%;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: calc(40 * var(--u));
+  font-size: var(--nav-size);
   font-weight: 400;
   letter-spacing: 0;
   line-height: 1.15;
@@ -616,7 +616,7 @@ body[data-view="contact"] .clock {
   margin: 0;
   transform: translateX(-50%);
   font-family: Arial, Helvetica, sans-serif;
-  font-size: var(--email-size);
+  font-size: var(--nav-size);
   font-weight: 400;
   letter-spacing: 0;
   line-height: 1;
@@ -693,7 +693,7 @@ body[data-view="contact"] .clock {
 
 .contact-socials a {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: calc(30 * var(--u));
+  font-size: var(--nav-size);
   font-weight: 400;
   letter-spacing: 0;
   line-height: 1;
@@ -718,7 +718,7 @@ body[data-view="contact"] .clock {
 
 .site-credit {
   margin: 0;
-  font-size: calc(12 * var(--u));
+  font-size: 8px;
   letter-spacing: 0.02em;
   line-height: 1;
   text-align: center;
@@ -860,6 +860,12 @@ body[data-view="contact"] .clock {
     padding: calc(4 * var(--m)) 0;
   }
 
+  .contact-cta__prompt,
+  .contact-email,
+  .contact-socials a {
+    font-size: calc(16 * var(--m));
+  }
+
   .apple .ripple-scope {
     padding: 12px;
   }
@@ -877,15 +883,9 @@ body[data-view="contact"] .clock {
   }
 
   .clock {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 8;
-    flex: none;
-    height: calc(var(--m-clock) + env(safe-area-inset-bottom, 0px));
-    padding-bottom: env(safe-area-inset-bottom, 0px);
-    background: var(--paper);
+    position: static;
+    flex: 0 0 var(--m-clock);
+    height: var(--m-clock);
     font-size: 7px;
     letter-spacing: 0.06em;
   }
@@ -894,7 +894,6 @@ body[data-view="contact"] .clock {
     box-sizing: border-box;
     height: auto;
     min-height: calc(100dvh - var(--header-h));
-    padding-bottom: var(--m-clock);
   }
 
   .about-band {
@@ -952,6 +951,10 @@ body[data-view="contact"] .clock {
     width: calc(165 * var(--m));
     height: calc(485 * var(--m));
     aspect-ratio: auto;
+  }
+
+  .site-credit {
+    font-size: 7px;
   }
 
   .view--about .site-credit {

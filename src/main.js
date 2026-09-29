@@ -10,7 +10,6 @@ const contactPanel = document.getElementById("contact-panel");
 const header = document.querySelector(".site-header");
 const navToggle = document.querySelector(".nav-toggle");
 const homeView = document.getElementById("home");
-const site = document.getElementById("site");
 const mobileQuery = window.matchMedia("(max-width: 720px)");
 
 function closeMobileNav() {
@@ -19,12 +18,8 @@ function closeMobileNav() {
 }
 
 function placeClock(view = currentView()) {
-  if (!clock || !homeView || !site) return;
+  if (!clock || !homeView) return;
   clock.hidden = view !== "home";
-  if (mobileQuery.matches) {
-    if (clock.parentElement !== site) site.appendChild(clock);
-    return;
-  }
   if (clock.parentElement !== homeView) homeView.appendChild(clock);
 }
 
