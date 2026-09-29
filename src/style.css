@@ -105,7 +105,8 @@ a {
 
 @media (min-width: 721px) {
   .nav {
-    transform: translateY(30px);
+    /* Wordmark ink ends 364/4864 of the logo width below header center. */
+    transform: translateY(calc(var(--logo-w) * 364 / 4864 - var(--nav-size) * 0.4111));
   }
 }
 
@@ -825,6 +826,7 @@ body[data-view="contact"] .clock {
     line-height: 1;
     text-transform: lowercase;
     cursor: pointer;
+    transform: translateY(calc(var(--logo-w) * 364 / 4864 - 15 * var(--m) * 0.4111));
   }
 
   .nav-toggle:hover,
@@ -853,7 +855,6 @@ body[data-view="contact"] .clock {
     margin: 0;
     padding: calc(16 * var(--m)) calc(18 * var(--m));
     background: #efece7;
-    transform: translateY(30px);
     border-radius: calc(8 * var(--m));
     box-shadow: 0 calc(10 * var(--m)) calc(28 * var(--m)) rgba(0, 0, 0, 0.08);
     z-index: 2;
