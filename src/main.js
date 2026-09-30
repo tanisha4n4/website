@@ -199,7 +199,20 @@ const workGrid = document.querySelector(".work-grid");
 const workView = document.querySelector(".work-view");
 const workViewImg = workView?.querySelector(".work-view__img");
 const workViewText = document.getElementById("work-view-text");
+const workViewLead = document.getElementById("work-view-lead");
 let workTileReturn = null;
+
+function setWorkLead(tile) {
+  if (!workViewLead) return;
+  const source = tile.querySelector(".work-tile__lead");
+  workViewLead.replaceChildren();
+  if (!source) {
+    workViewLead.hidden = true;
+    return;
+  }
+  workViewLead.append(...source.cloneNode(true).childNodes);
+  workViewLead.hidden = false;
+}
 
 function openWork(tile) {
   const source = tile.querySelector("img");
@@ -207,6 +220,7 @@ function openWork(tile) {
   workViewImg.src = source.src;
   workViewImg.alt = source.alt || "";
   if (workViewText) workViewText.textContent = tile.dataset.caption || "";
+  setWorkLead(tile);
   workView.hidden = false;
   document.body.classList.add("is-work-open");
   workTileReturn = tile;
@@ -221,6 +235,10 @@ function closeWork(options = {}) {
     workViewImg.removeAttribute("src");
     workViewImg.alt = "";
   }
+  if (workViewLead) {
+    workViewLead.replaceChildren();
+    workViewLead.hidden = true;
+  }
   const back = workTileReturn;
   workTileReturn = null;
   if (options.restore !== false) back?.focus();
@@ -233,7 +251,7 @@ workGrid?.addEventListener("click", (event) => {
 });
 
 workView?.addEventListener("click", (event) => {
-  if (event.target.closest(".work-view__photo, .work-view__text")) return;
+  if (event.target.closest(".work-view__photo, .work-view__copy")) return;
   closeWork();
 });
 

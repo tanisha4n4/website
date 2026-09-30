@@ -665,7 +665,7 @@ body.is-work-open {
   filter: none;
 }
 
-.work-view__text {
+.work-view__copy {
   position: absolute;
   /* Same place as .home-note: bottom edge 70px below the homepage image, right edge 60px in. */
   top: auto;
@@ -675,6 +675,32 @@ body.is-work-open {
   margin: 0;
   background: #ffffff;
   color: #000000;
+}
+
+.work-view__lead {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 6px);
+  width: 100%;
+  margin: 0;
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  font-size: var(--nav-size);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  text-align: left;
+}
+
+.work-view__lead[hidden] {
+  display: none;
+}
+
+.work-view__lead strong {
+  font-weight: 700;
+}
+
+.work-view__text {
+  margin: 0;
   font-family: Arial, sans-serif;
   font-size: 8px;
   font-weight: 400;
@@ -1114,7 +1140,7 @@ body.is-work-open {
     top: calc(var(--header-h) + (100dvh - var(--header-h) - var(--m-clock) - var(--apple-w)) / 2);
   }
 
-  .work-view__text {
+  .work-view__copy {
     top: calc(var(--header-h) + (100dvh - var(--header-h) - var(--m-clock) + var(--apple-w)) / 2 + 70px);
     bottom: auto;
     right: 0;
@@ -1122,6 +1148,18 @@ body.is-work-open {
     width: 120px;
     max-width: 120px;
     margin-inline: auto;
+  }
+
+  .work-view__lead {
+    position: static;
+    left: auto;
+    bottom: auto;
+    width: 100%;
+    margin: 0 0 6px;
+    font-size: calc(16 * var(--m));
+  }
+
+  .work-view__text {
     font-size: 7px;
   }
 }
