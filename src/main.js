@@ -233,7 +233,7 @@ workGrid?.addEventListener("click", (event) => {
 });
 
 workView?.addEventListener("click", (event) => {
-  if (event.target.closest(".work-view__text")) return;
+  if (event.target.closest(".work-view__photo, .work-view__text")) return;
   closeWork();
 });
 
