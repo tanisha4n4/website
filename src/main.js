@@ -50,6 +50,7 @@ function showView(id) {
   document.body.dataset.view = view;
   placeClock(view);
   closeMobileNav();
+  closeWork({ restore: false });
   window.scrollTo(0, 0);
 
   liquid.invalidate();
@@ -166,7 +167,12 @@ document.addEventListener("click", (event) => {
 });
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") closeMobileNav();
+  if (event.key !== "Escape") return;
+  if (workView && !workView.hidden) {
+    closeWork();
+    return;
+  }
+  closeMobileNav();
 });
 
 mobileQuery.addEventListener("change", () => {
@@ -187,6 +193,48 @@ window.addEventListener("hashchange", () => {
 
 window.addEventListener("popstate", () => {
   showView(currentView());
+});
+
+const workGrid = document.querySelector(".work-grid");
+const workView = document.querySelector(".work-view");
+const workViewImg = workView?.querySelector(".work-view__img");
+const workViewText = document.getElementById("work-view-text");
+let workTileReturn = null;
+
+function openWork(tile) {
+  const source = tile.querySelector("img");
+  if (!workView || !workViewImg || !source) return;
+  workViewImg.src = source.src;
+  workViewImg.alt = source.alt || "";
+  if (workViewText) workViewText.textContent = tile.dataset.caption || "";
+  workView.hidden = false;
+  document.body.classList.add("is-work-open");
+  workTileReturn = tile;
+  workView.focus();
+}
+
+function closeWork(options = {}) {
+  if (!workView || workView.hidden) return;
+  workView.hidden = true;
+  document.body.classList.remove("is-work-open");
+  if (workViewImg) {
+    workViewImg.removeAttribute("src");
+    workViewImg.alt = "";
+  }
+  const back = workTileReturn;
+  workTileReturn = null;
+  if (options.restore !== false) back?.focus();
+}
+
+workGrid?.addEventListener("click", (event) => {
+  const tile = event.target.closest(".work-tile");
+  if (!tile) return;
+  openWork(tile);
+});
+
+workView?.addEventListener("click", (event) => {
+  if (event.target.closest(".work-view__text")) return;
+  closeWork();
 });
 
 tickClock();

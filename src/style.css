@@ -547,18 +547,39 @@ body[data-view="contact"] .clock {
   width: 100%;
   height: auto;
   aspect-ratio: 690 / 485;
+  margin: 0;
+  padding: 0;
+  border: 0;
   overflow: hidden;
   background: #d9d9d9;
   outline: 2px solid transparent;
   outline-offset: 0;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  appearance: none;
+  cursor: pointer;
 }
 
-/* Darker than the lab-link cobalt so shadow texture stays visible. */
+/* Screen a gray veil so blacks lift off the page while highlights stay bright. */
 .work-tile::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: color-mix(in srgb, var(--cobalt) 40%, #000);
+  z-index: 1;
+  background: #333333;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+/* Darker than the lab-link cobalt. Lighten recolors only pixels darker than this blue. */
+.work-tile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: color-mix(in srgb, var(--cobalt) 60%, #000);
+  mix-blend-mode: lighten;
   opacity: 0;
   pointer-events: none;
 }
@@ -569,17 +590,99 @@ body[data-view="contact"] .clock {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: grayscale(1) contrast(0.9) brightness(1.08);
+  filter: grayscale(1);
 }
 
-.work-tile:hover::before,
-.work-tile:focus-visible::before {
+.work-tile:hover::after,
+.work-tile:focus-visible::after {
   opacity: 1;
 }
 
-.work-tile:hover img,
-.work-tile:focus-visible img {
-  mix-blend-mode: screen;
+body.is-work-open {
+  overflow: hidden;
+}
+
+.work-view[hidden] {
+  display: none !important;
+}
+
+.work-view:not([hidden]) {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(24 * var(--u));
+  overflow: auto;
+  background: #ffffff;
+}
+
+.work-view:focus {
+  outline: none;
+}
+
+.work-view__frame {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: calc(12 * var(--u));
+  width: min(72vw, calc(100dvh - 230px), 780px);
+  background: #ffffff;
+}
+
+.work-view__close {
+  margin: 0;
+  padding: 0.35em 0.15em;
+  border: 0;
+  background: transparent;
+  color: #000000;
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  font-size: var(--nav-size);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  text-transform: lowercase;
+  cursor: pointer;
+}
+
+.work-view__close:hover,
+.work-view__close:focus-visible {
+  color: var(--cobalt);
+}
+
+.work-view__close:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 3px;
+}
+
+.work-view__photo {
+  align-self: stretch;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.work-view__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: none;
+}
+
+.work-view__text {
+  align-self: stretch;
+  margin: 0;
+  background: #ffffff;
+  color: #000000;
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  font-size: var(--nav-size);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
 }
 
 .view--shop {
@@ -1004,5 +1107,19 @@ body[data-view="contact"] .clock {
     white-space: normal;
     max-width: calc(100% - var(--edge) * 2);
     text-align: center;
+  }
+
+  .work-view:not([hidden]) {
+    padding: calc(16 * var(--m));
+  }
+
+  .work-view__frame {
+    gap: calc(10 * var(--m));
+    width: min(88vw, calc(100dvh - 200px));
+  }
+
+  .work-view__close,
+  .work-view__text {
+    font-size: calc(16 * var(--m));
   }
 }
