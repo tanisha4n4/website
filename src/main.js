@@ -195,12 +195,21 @@ window.addEventListener("popstate", () => {
   showView(currentView());
 });
 
-const workGrid = document.querySelector(".work-grid");
+const workGrids = document.querySelectorAll(".work-grid");
 const workView = document.querySelector(".work-view");
 const workViewImg = workView?.querySelector(".work-view__img");
+const workViewStory = workView?.querySelector(".work-view__story");
+const workViewCopy = workView?.querySelector(".work-view__frame > .work-view__copy");
 const workViewText = document.getElementById("work-view-text");
 const workViewLead = document.getElementById("work-view-lead");
+const workViewTitle = document.getElementById("work-view-title");
 let workTileReturn = null;
+
+function tileCaption(tile) {
+  const caption = tile.querySelector(".work-tile__caption");
+  if (caption) return caption.textContent.trim();
+  return tile.dataset.caption || "";
+}
 
 function setWorkLead(tile) {
   if (!workViewLead) return;
@@ -214,12 +223,195 @@ function setWorkLead(tile) {
   workViewLead.hidden = false;
 }
 
+function clearStory() {
+  if (workViewTitle && workViewCopy && workViewTitle.parentElement !== workViewCopy) {
+    workViewCopy.append(workViewTitle);
+  }
+  if (!workViewStory) return;
+  workViewStory.replaceChildren();
+  workViewStory.hidden = true;
+  workView?.classList.remove("is-story", "is-portraits");
+}
+
+function storyShot(source) {
+  const shot = document.createElement(source ? "img" : "div");
+  shot.className = "work-view__shot";
+  if (!source) {
+    shot.setAttribute("aria-hidden", "true");
+    return shot;
+  }
+  shot.src = source.src;
+  shot.alt = source.alt || "";
+  shot.style.objectFit = source.dataset.fit || "cover";
+  return shot;
+}
+
+function storyText(source, title) {
+  const block = document.createElement("div");
+  block.className = "work-view__copy";
+  if (title && workViewTitle) {
+    workViewTitle.textContent = title;
+    workViewTitle.hidden = false;
+    block.append(workViewTitle);
+  }
+  if (source instanceof Element && source.children.length) {
+    [...source.children].forEach((child) => block.append(child.cloneNode(true)));
+    return block;
+  }
+  const body = typeof source === "string" ? source : source?.textContent?.trim() || "";
+  if (!body && !title) return null;
+  const paragraph = document.createElement("p");
+  paragraph.className = "work-view__text";
+  paragraph.textContent = body;
+  block.append(paragraph);
+  return block;
+}
+
+function fillStory(tile) {
+  if (!workViewStory) return;
+  const title = tile.dataset.title || "";
+  if (!title) {
+    clearStory();
+    return;
+  }
+  const texts = [...tile.querySelectorAll(".work-tile__text")];
+  if (tile.dataset.layout === "portraits") {
+    const spread = document.createElement("div");
+    spread.className = "work-view__spread";
+    const stack = document.createElement("div");
+    stack.className = "work-view__stack";
+    const column = document.createElement("div");
+    column.className = "work-view__column";
+    const word = tile.dataset.word || "identities";
+    const identities = document.createElement("p");
+    identities.className = "work-view__identities display";
+    identities.dataset.text = word;
+    const hires = document.createElement("span");
+    hires.className = "display__hires";
+    const mark = document.createElement("span");
+    mark.className = "display__mark";
+    mark.textContent = word;
+    hires.append(mark);
+    identities.append(hires);
+    column.append(identities);
+    clearStory();
+    const dek = storyText(texts[0]);
+    if (dek) {
+      dek.classList.add("work-view__dek");
+      column.append(dek);
+    }
+    const asideShots = new Map();
+    tile.querySelectorAll(".work-tile__extra").forEach((img) => {
+      const place = img.dataset.place || "stack";
+      if (place === "d") {
+        const shot = document.createElement("div");
+        shot.className = "work-view__shot";
+        shot.dataset.place = "d";
+        const photo = document.createElement("img");
+        photo.src = img.getAttribute("src");
+        photo.alt = img.alt || "";
+        shot.append(photo);
+        column.append(shot);
+        return;
+      }
+      const shot = storyShot({
+        src: img.getAttribute("src"),
+        alt: img.alt || "",
+        dataset: { fit: img.dataset.fit || "cover" },
+      });
+      shot.dataset.place = place;
+      if (img.dataset.aspect) shot.dataset.aspect = img.dataset.aspect;
+      if (place === "aside") {
+        const after = Number(img.dataset.after || 1);
+        const group = asideShots.get(after) || [];
+        group.push(shot);
+        asideShots.set(after, group);
+        return;
+      }
+      if (place === "c") column.append(shot);
+      else stack.append(shot);
+    });
+    const aside = document.createElement("div");
+    aside.className = "work-view__aside";
+    texts.slice(1).forEach((block, index) => {
+      const part = storyText(block);
+      if (block.dataset.place === "stack") {
+        if (part) stack.append(part);
+        return;
+      }
+      if (part) aside.append(part);
+      asideShots.get(index + 1)?.forEach((shot) => aside.append(shot));
+    });
+    if (aside.childElementCount) column.append(aside);
+    spread.append(stack, column);
+    workViewStory.append(spread);
+    workView?.classList.add("is-portraits", "is-story");
+    workViewStory.hidden = false;
+    return;
+  }
+  const cover = tile.querySelector("img:not(.work-tile__extra)");
+  const extras = [...tile.querySelectorAll(".work-tile__extra")];
+  const sources = (slot) =>
+    extras
+      .filter((img) => (img.dataset.slot || "small") === slot)
+      .map((img) => ({
+        src: img.getAttribute("src"),
+        alt: img.alt || "",
+        dataset: { fit: img.dataset.fit || "cover" },
+      }));
+  const opening = sources("open");
+  const smalls = sources("small");
+  const closing = sources("close");
+  const nextSmall = () => (smalls.length ? storyShot(smalls.shift()) : storyShot());
+  const motion = tile.dataset.motion
+    ? {
+        src: tile.dataset.motion,
+        alt: tile.dataset.motionAlt || cover?.alt || "",
+        dataset: { fit: "contain" },
+      }
+    : null;
+  const pair = document.createElement("div");
+  pair.className = "work-view__pair";
+  const smallShots = [motion ? storyShot(motion) : nextSmall(), nextSmall()];
+  smallShots.forEach((shot) => shot.classList.add("work-view__shot--small"));
+  pair.append(...smallShots);
+  clearStory();
+  const sequence = [
+    opening.length ? storyShot(opening.shift()) : storyShot(cover),
+    storyText(texts[0], title),
+    pair,
+    storyText(texts[1]),
+    closing.length ? storyShot(closing.shift()) : storyShot(),
+  ];
+  if (texts[2]) sequence.push(storyText(texts[2]));
+  workViewStory.append(...sequence.filter(Boolean));
+  workViewStory.hidden = false;
+  workView?.classList.add("is-story");
+}
+
 function openWork(tile) {
   const source = tile.querySelector("img");
-  if (!workView || !workViewImg || !source) return;
-  workViewImg.src = source.src;
-  workViewImg.alt = source.alt || "";
-  if (workViewText) workViewText.textContent = tile.dataset.caption || "";
+  if (!workView || !workViewImg) return;
+  if (source?.getAttribute("src")) {
+    workViewImg.hidden = false;
+    workViewImg.src = source.src;
+    workViewImg.alt = source.alt || "";
+    workViewImg.style.objectFit = source.dataset.fit || "";
+  } else {
+    workViewImg.hidden = true;
+    workViewImg.removeAttribute("src");
+    workViewImg.alt = "";
+    workViewImg.style.objectFit = "";
+  }
+  const title = tile.dataset.title || "";
+  if (workViewText) workViewText.textContent = tileCaption(tile);
+  if (workViewTitle) {
+    workViewTitle.textContent = title;
+    workViewTitle.hidden = !title;
+  }
+  workView.classList.toggle("is-project", Boolean(title));
+  fillStory(tile);
+  workView.setAttribute("aria-labelledby", title ? "work-view-title" : "work-view-text");
   setWorkLead(tile);
   workView.hidden = false;
   document.body.classList.add("is-work-open");
@@ -232,8 +424,17 @@ function closeWork(options = {}) {
   workView.hidden = true;
   document.body.classList.remove("is-work-open");
   if (workViewImg) {
+    workViewImg.hidden = false;
     workViewImg.removeAttribute("src");
     workViewImg.alt = "";
+    workViewImg.style.objectFit = "";
+  }
+  workView.classList.remove("is-project");
+  clearStory();
+  workView.setAttribute("aria-labelledby", "work-view-text");
+  if (workViewTitle) {
+    workViewTitle.textContent = "";
+    workViewTitle.hidden = true;
   }
   if (workViewLead) {
     workViewLead.replaceChildren();
@@ -244,14 +445,16 @@ function closeWork(options = {}) {
   if (options.restore !== false) back?.focus();
 }
 
-workGrid?.addEventListener("click", (event) => {
-  const tile = event.target.closest(".work-tile");
-  if (!tile) return;
-  openWork(tile);
+workGrids.forEach((grid) => {
+  grid.addEventListener("click", (event) => {
+    const tile = event.target.closest(".work-tile");
+    if (!tile || tile.classList.contains("work-tile--pending")) return;
+    openWork(tile);
+  });
 });
 
 workView?.addEventListener("click", (event) => {
-  if (event.target.closest(".work-view__photo, .work-view__copy")) return;
+  if (event.target.closest(".work-view__photo, .work-view__copy, .work-view__story")) return;
   closeWork();
 });
 

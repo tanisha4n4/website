@@ -12,7 +12,7 @@
       type="font/otf"
       crossorigin
     />
-    <link rel="stylesheet" href="src/style.css" />
+    <link rel="stylesheet" href="src/style.css?v=31" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -92,8 +92,8 @@
         </button>
         <nav class="nav" id="site-nav" aria-label="Primary">
           <a href="#about">about</a>
-          <a href="#projects">lab</a>
-          <a href="#shop">projects</a>
+          <a href="#projects">projects</a>
+          <a href="#shop">lab</a>
           <a href="#contact">contact</a>
         </nav>
       </header>
@@ -128,61 +128,116 @@
 
         <section class="view view--projects" id="projects" hidden>
           <div class="work-shell">
-            <h1 class="display" data-text="lab."><span class="display__hires"><span class="display__mark">lab.</span></span></h1>
+            <h1 class="display" data-text="projects."><span class="display__hires"><span class="display__mark">projects.</span></span></h1>
             <div class="work-grid">
-              <button class="work-tile" type="button" aria-haspopup="dialog" data-caption="Cyanotype, botanical impressions created using a photographic process that uses light sensitive chemical coating.">
-                <img src="surface.png" alt="Surface" />
-                <span class="work-tile__lead" hidden>we experiment with <strong>surfaces</strong></span>
+              <button class="work-tile" type="button" aria-haspopup="dialog" data-title="Future is blurry" data-layout="portraits" data-word="future" data-motion="project1/rplogo_gif.gif" data-motion-alt="Rotating logo for a technology innovation startup">
+                <img src="project1/cover1.png" alt="Blurred photograph for Radical Prototypes" />
+                <img class="work-tile__extra" data-place="stack" src="project1/5.jpg" alt="Colour, grain and blur studies for Radical Prototypes" hidden />
+                <img class="work-tile__extra" data-place="stack" src="project1/2.jpg" alt="Surface studies for the arc" hidden />
+                <img class="work-tile__extra" data-place="stack" src="project1/1.jpg" alt="Type sizes for Radical Prototypes" hidden />
+                <img class="work-tile__extra" data-place="stack" src="project1/4.jpg" alt="Image and copy studies for Radical Prototypes" hidden />
+                <img class="work-tile__extra" data-place="c" data-fit="contain" src="project1/rplogo_gif.gif" alt="Rotating logo for a technology innovation startup" hidden />
+                <img class="work-tile__extra" data-place="c" src="project1/3.jpg" alt="Dynamic and surface versions of the arc" hidden />
+                <span class="work-tile__caption" hidden aria-hidden="true">
+                  <span class="work-tile__text">
+                    <p class="work-view__text">An identity for Radical Prototypes, a technology innovation startup.</p>
+                    <p class="work-view__text">Radical Prototypes builds working prototypes of alternative futures by reassembling existing technologies into new systems. Their work sits between what exists and what is yet to emerge; the future, here, is a field of possibilities still taking shape.</p>
+                    <p class="work-view__text">How might an identity represent something that has not yet come into focus?</p>
+                    <p class="work-view__text">We answered with a visual system built on abstraction, ambiguity and partial visibility. Geometric forms are distilled into a single forward arc, while images stay soft, grainy and atmospheric, presenting technology as a glimpse of what might be rather than a picture of what is.</p>
+                  </span>
+                  <span class="work-tile__text">
+                    <p class="work-view__text work-view__heading">The Arc</p>
+                    <p class="work-view__text">A single gesture, pointing ahead. Reduced until it survives at 8mm on a label and at 8 metres on a wall, with nothing added to make it legible.</p>
+                    <p class="work-view__text work-view__heading">Partial Visibility</p>
+                    <p class="work-view__text">Every image is a detail, never the whole. Shallow depth, cold blue, heavy grain. You see enough to know something is being built, not enough to say what.</p>
+                    <p class="work-view__text work-view__heading">A System That Stays Open</p>
+                    <p class="work-view__text">Type, colour and image are set as rules rather than templates, so each new prototype enters the identity without the identity closing around it.</p>
+                  </span>
+                </span>
               </button>
-              <button class="work-tile" type="button" aria-haspopup="dialog" data-caption="Furniture and objects explore the use of materials such as aluminum and leather. They come together to create functional objects.">
-                <img src="objects.png" alt="Objects" />
-                <span class="work-tile__lead" hidden>we make <strong>objects</strong></span>
+              <button class="work-tile" type="button" aria-haspopup="dialog" data-title="The Journey of an Object" data-layout="portraits" data-word="journey">
+                <img src="project2/cover.png" alt="Amber pipes crossing a concrete wall" />
+                <img class="work-tile__extra" data-place="stack" src="project2/11.jpg" alt="Amber pipes running through the store, above the counter and clothing racks" hidden />
+                <img class="work-tile__extra" data-place="stack" src="project2/5.jpg" alt="Diagram of the object, the route, and the customer" hidden />
+                <img class="work-tile__extra" data-place="stack" src="project2/cover1.png" alt="Axonometric of the store and its overhead pipe network" hidden />
+                <img class="work-tile__extra" data-place="c" src="project2/4.jpg" alt="Section diagram of how the pipe system works" hidden />
+                <img class="work-tile__extra" data-place="aside" data-after="1" src="project2/cover.png" alt="Amber pipe crossing a concrete wall" hidden />
+                <span class="work-tile__caption" hidden aria-hidden="true">
+                  <span class="work-tile__text">
+                    <p class="work-view__text">A retail environment exploring movement, attention and anticipation.</p>
+                    <p class="work-view__text">Stores stage a product carefully until the moment it is chosen. After that, its retrieval is treated as logistics. We asked what changes when that journey becomes the experience.</p>
+                    <p class="work-view__text">A selection at the counter releases a carrier from smart storage. It travels through a gravity-driven network of overhead paths, crossing the room in full view before arriving in the customer’s hands.</p>
+                  </span>
+                  <span class="work-tile__text">
+                    <p class="work-view__text work-view__heading">Selection as Release</p>
+                    <p class="work-view__text">The counter is no longer the end of the encounter but the start of one. Choosing an item sets something in motion above you.</p>
+                    <p class="work-view__text work-view__heading">The Network</p>
+                    <p class="work-view__text">Interconnected rails turn the ceiling into a route. The object’s path is legible from anywhere in the store, so attention follows it across the space.</p>
+                    <p class="work-view__text work-view__heading">Arrival</p>
+                    <p class="work-view__text">By the time the product reaches the customer it has been watched, anticipated and waited for. The handover becomes the moment the store was built around.</p>
+                  </span>
+                  <span class="work-tile__text" data-place="stack">
+                    <p class="work-view__text work-view__heading">A Store as a Route</p>
+                    <p class="work-view__text">A brutalist apparel brand, designed as a space rather than a logo.</p>
+                    <p class="work-view__text">Raw concrete gives the clothes a surface to be seen against. A single continuous amber line runs through the store, carrying the eye from entrance to fitting room and turning the plan into a path.</p>
+                    <p class="work-view__text work-view__heading">Concrete as Backdrop</p>
+                    <p class="work-view__text">No graphics, no signage. The material is the identity, and the garments are the only colour until the line appears.</p>
+                    <p class="work-view__text work-view__heading">The Amber Line</p>
+                    <p class="work-view__text">One line, never broken. It marks the route, lights the rails and reappears on the hanger, the bag and the label, so the brand is something you follow rather than read.</p>
+                  </span>
+                </span>
               </button>
-              <button class="work-tile" type="button" aria-haspopup="dialog" data-caption="Inducing transformational abilities in simple materials as a result of geometric pattern, cut or carved out.">
-                <img src="materials.png" alt="Materials" />
-                <span class="work-tile__lead" hidden>we research <strong>materials</strong></span>
+              <button class="work-tile" type="button" aria-haspopup="dialog" data-title="Same Face, Different Day" data-layout="portraits" data-word="identities">
+                <img src="project3/colored_tanu.JPG" alt="Portrait illustration" />
+                <img class="work-tile__extra" data-place="a" data-aspect="portrait" src="project3/colored_tanu.JPG" alt="Portrait on a red ground" hidden />
+                <img class="work-tile__extra" data-place="b" data-aspect="portrait" src="project3/colored_rajvi.PNG" alt="Portrait on a blue ground" hidden />
+                <img class="work-tile__extra" data-place="c" data-aspect="portrait" src="project3/IMG_7468.gif" alt="Animated portrait illustration" hidden />
+                <img class="work-tile__extra" data-place="d" src="project3/Glazed_tiles.png" alt="Glazed ceramic plates printed with the portraits" hidden />
+                <span class="work-tile__caption" hidden aria-hidden="true">
+                  <span class="work-tile__text">
+                    <p class="work-view__text">A portrait series in bold colour and textured strokes.</p>
+                    <p class="work-view__text">The series plays with the idea that identity can be shaped, styled and performed, while something underneath remains recognisably you. The same woman returns in every frame, with different hair, glasses and clothes, on a different flat ground.</p>
+                  </span>
+                  <span class="work-tile__text" data-place="stack">
+                    <p class="work-view__text work-view__heading">Off the Page</p>
+                    <p class="work-view__text">The flat colour and soft grain translate to glaze, the faces have moved onto a series of ceramic plates. A portrait you can set the table with.</p>
+                  </span>
+                </span>
               </button>
-              <button class="work-tile" type="button" aria-haspopup="dialog" data-caption="Exploring color, texture, form and atmosphere through oil on canvas.">
-                <img src="visuals.png" alt="Visuals" />
-                <span class="work-tile__lead" hidden>we make <strong>visuals</strong></span>
-              </button>
-              <button class="work-tile" type="button" aria-haspopup="dialog" data-caption="The client brief here was to create illustration focused on identity.">
-                <img src="colored_tanu.JPG" alt="Colored tanu" />
-                <span class="work-tile__lead" hidden>we sketch <strong>illustrations</strong></span>
-              </button>
-              <button class="work-tile" type="button" aria-haspopup="dialog" data-caption="This is an Olfactory device that is intended to induce a scent to create an enhanced experience while viewing an artifact.">
-                <img src="sensory_device.png" alt="sensory device" />
-                <span class="work-tile__lead" hidden>we develop <strong>interactive devices</strong></span>
-              </button>
-              <button class="work-tile" type="button" aria-haspopup="dialog" data-caption="fournfour branding, we also work with companies to help them find meaning which is reflected in their brand identity.">
-                <img src="changing.GIF" alt="Changing" />
-                <span class="work-tile__lead" hidden>we create <strong>brand identity</strong></span>
-              </button>
-              <button class="work-tile" type="button" aria-haspopup="dialog" data-caption="fournfour branding, we also work with companies to help them find meaning which is reflected in their brand identity.">
-                <img src="bananaleaf.jpeg" alt="Banana leaf" />
-                <span class="work-tile__lead" hidden>we create <strong>brand identity</strong></span>
-              </button>
-            </div>
-          </div>
-          <div class="work-view" role="dialog" aria-modal="true" aria-labelledby="work-view-text" tabindex="-1" hidden>
-            <div class="work-view__frame">
-              <button class="work-view__close" type="button">close</button>
-              <div class="work-view__photo">
-                <img class="work-view__img" alt="" />
-              </div>
-              <div class="work-view__copy">
-                <p class="work-view__lead" id="work-view-lead" hidden></p>
-                <p class="work-view__text" id="work-view-text"></p>
+              <div class="work-tile work-tile--pending">
+                <img src="project4_cover.png" alt="" />
+                <p class="work-tile__pending">
+                  <span class="work-tile__pending-status">under construction</span>
+                  <span class="work-tile__pending-kind">spatial design</span>
+                </p>
               </div>
             </div>
           </div>
           <p class="site-credit">© fournfour 2026</p>
         </section>
 
-        <section class="view view--shop" id="shop" hidden>
-          <h1 class="display" data-text="underconstruction">
-            <span class="display__hires"><span class="display__mark">underconstruction</span></span>
-          </h1>
+        <section class="view view--projects" id="shop" hidden>
+          <div class="work-shell">
+            <h1 class="display" data-text="lab."><span class="display__hires"><span class="display__mark">lab.</span></span></h1>
+            <div class="work-grid">
+              <button class="work-tile" type="button" aria-haspopup="dialog" data-caption="Cyanotype, botanical impressions created using a photographic process that uses light sensitive chemical coating.">
+                <img src="surface.png" alt="Surface" />
+                <span class="work-tile__lead" hidden>we experiment with <strong>surfaces</strong></span>
+              </button>
+              <button class="work-tile" type="button" aria-haspopup="dialog" data-caption="This is an Olfactory device that is intended to induce a scent to create an enhanced experience while viewing an artifact.">
+                <img src="sensory_device.png" alt="sensory device" />
+                <span class="work-tile__lead" hidden>we develop <strong>interactive devices</strong></span>
+              </button>
+              <button class="work-tile" type="button" aria-haspopup="dialog" data-caption="Inducing transformational abilities in simple materials as a result of geometric pattern, cut or carved out.">
+                <img src="materials.png" alt="Materials" />
+                <span class="work-tile__lead" hidden>we research <strong>materials</strong></span>
+              </button>
+              <button class="work-tile" type="button" aria-haspopup="dialog" data-caption="Furniture and objects explore the use of materials such as aluminum and leather. They come together to create functional objects.">
+                <img src="objects.png" alt="Objects" />
+                <span class="work-tile__lead" hidden>we make <strong>objects</strong></span>
+              </button>
+            </div>
+          </div>
           <p class="site-credit">© fournfour 2026</p>
         </section>
 
@@ -225,9 +280,23 @@
             <p class="site-credit">© fournfour 2026</p>
           </div>
         </section>
+        <div class="work-view" role="dialog" aria-modal="true" aria-labelledby="work-view-text" tabindex="-1" hidden>
+          <div class="work-view__frame">
+            <button class="work-view__close" type="button">close</button>
+            <div class="work-view__story" hidden></div>
+            <div class="work-view__photo">
+              <img class="work-view__img" alt="" />
+            </div>
+            <div class="work-view__copy">
+              <p class="work-view__lead" id="work-view-lead" hidden></p>
+              <p class="work-view__title" id="work-view-title" hidden></p>
+              <p class="work-view__text" id="work-view-text"></p>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
 
-    <script type="module" src="src/main.js"></script>
+    <script type="module" src="src/main.js?v=41"></script>
   </body>
 </html>
