@@ -448,7 +448,7 @@ function closeWork(options = {}) {
 workGrids.forEach((grid) => {
   grid.addEventListener("click", (event) => {
     const tile = event.target.closest(".work-tile");
-    if (!tile || tile.classList.contains("work-tile--pending")) return;
+    if (!tile) return;
     openWork(tile);
   });
 });
