@@ -555,6 +555,7 @@ body[data-view="contact"] .clock {
 #projects .work-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 60px;
 }
 
 #projects .work-tile {
@@ -564,10 +565,17 @@ body[data-view="contact"] .clock {
 @media (min-width: 721px) {
   #projects .work-grid {
     width: 86%;
+    margin-inline: auto;
+  }
+
+  #projects .display {
+    margin-left: calc((100% - 86%) / 2);
   }
 
   #shop .work-grid {
     grid-template-columns: repeat(4, 1fr);
+    gap: 80px;
+    width: 100%;
   }
 
   #shop .work-tile {
