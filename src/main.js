@@ -213,6 +213,11 @@ function tileCaption(tile) {
 
 function setWorkLead(tile) {
   if (!workViewLead) return;
+  if (tile.dataset.tag) {
+    workViewLead.textContent = tile.dataset.tag;
+    workViewLead.hidden = false;
+    return;
+  }
   const source = tile.querySelector(".work-tile__lead");
   workViewLead.replaceChildren();
   if (!source) {
@@ -265,6 +270,135 @@ function storyText(source, title) {
   paragraph.textContent = body;
   block.append(paragraph);
   return block;
+}
+
+function pageCredit() {
+  const credit = document.createElement("p");
+  credit.className = "site-credit";
+  credit.textContent = "© fournfour 2026";
+  return credit;
+}
+
+function fillLabSheet(tile) {
+  if (!workViewStory) return;
+  clearStory();
+  const sheet = document.createElement("div");
+  sheet.className = "lab-sheet";
+  if (tile.dataset.sheet) sheet.classList.add(`lab-sheet--${tile.dataset.sheet}`);
+  const heroSource = tile.querySelector('.work-tile__extra[data-place="hero"]');
+  const hero = document.createElement("figure");
+  hero.className = "lab-sheet__hero";
+  const heroImg = document.createElement("img");
+  heroImg.src = heroSource?.getAttribute("src") || tile.querySelector("img")?.getAttribute("src") || "";
+  heroImg.alt = heroSource?.alt || tile.querySelector("img")?.alt || "";
+  hero.append(heroImg);
+  const copy = document.createElement("div");
+  copy.className = "lab-sheet__copy";
+  if (tile.dataset.name) {
+    const name = document.createElement("p");
+    name.className = "lab-sheet__name display";
+    name.dataset.text = tile.dataset.name;
+    const hires = document.createElement("span");
+    hires.className = "display__hires";
+    const mark = document.createElement("span");
+    mark.className = "display__mark";
+    mark.textContent = tile.dataset.name;
+    hires.append(mark);
+    name.append(hires);
+    copy.append(name);
+  }
+  if (tile.dataset.tag) {
+    const tag = document.createElement("p");
+    tag.className = "lab-sheet__tag";
+    tag.textContent = tile.dataset.tag;
+    copy.append(tag);
+  }
+  const copySource = tile.querySelector(".lab-copy");
+  if (copySource) {
+    copySource.querySelectorAll("p").forEach((source) => {
+      const paragraph = document.createElement("p");
+      paragraph.className = source.classList.contains("lab-copy__heading")
+        ? "lab-sheet__heading"
+        : "lab-sheet__text";
+      paragraph.textContent = source.textContent.trim();
+      copy.append(paragraph);
+    });
+  } else {
+    const body = document.createElement("p");
+    body.className = "lab-sheet__text";
+    body.textContent = tileCaption(tile);
+    copy.append(body);
+  }
+  const notes = tile.querySelector(".lab-notes");
+  if (notes) {
+    const block = notes.cloneNode(true);
+    block.hidden = false;
+    block.removeAttribute("aria-hidden");
+    copy.append(block);
+  } else {
+    const specs = tile.querySelector(".lab-specs");
+    if (specs) {
+      const details = specs.cloneNode(true);
+      details.hidden = false;
+      details.removeAttribute("aria-hidden");
+      copy.append(details);
+    }
+  }
+  const footSource = tile.querySelector(".lab-foot");
+  if (footSource) {
+    const note = footSource.querySelector("p");
+    if (note) {
+      const text = document.createElement("p");
+      text.className = "lab-sheet__text";
+      text.textContent = note.textContent.trim();
+      copy.append(text);
+    }
+  }
+  const samplesSource = tile.querySelector(".lab-samples");
+  const top = document.createElement("div");
+  top.className = "lab-sheet__top";
+  const footPhoto = footSource?.querySelector("img");
+  if (samplesSource) {
+    const samples = samplesSource.cloneNode(true);
+    samples.hidden = false;
+    samples.removeAttribute("aria-hidden");
+    top.append(samples, copy);
+  } else if (footPhoto) {
+    const figure = document.createElement("figure");
+    figure.className = "lab-sheet__aside";
+    const img = document.createElement("img");
+    img.src = footPhoto.getAttribute("src");
+    img.alt = footPhoto.alt || "";
+    figure.append(img);
+    const side = document.createElement("div");
+    side.className = "lab-sheet__side";
+    side.append(hero, figure);
+    top.append(side, copy);
+  } else {
+    top.append(hero, copy);
+  }
+  const row = document.createElement("div");
+  row.className = "lab-sheet__row";
+  tile.querySelectorAll('.work-tile__extra[data-place="row"]').forEach((source) => {
+    const item = document.createElement("figure");
+    item.className = "lab-sheet__item";
+    const photo = document.createElement("img");
+    photo.src = source.getAttribute("src");
+    photo.alt = source.alt || "";
+    item.append(photo);
+    if (source.dataset.note) {
+      const note = document.createElement("figcaption");
+      note.textContent = source.dataset.note;
+      item.append(note);
+    }
+    row.append(item);
+  });
+  sheet.append(top);
+  if (row.childElementCount) sheet.append(row);
+  sheet.append(pageCredit());
+  workViewStory.append(sheet);
+  workViewStory.hidden = false;
+  workView?.classList.add("is-story", "is-lab-note");
 }
 
 function fillStory(tile) {
@@ -344,7 +478,7 @@ function fillStory(tile) {
     });
     if (aside.childElementCount) column.append(aside);
     spread.append(stack, column);
-    workViewStory.append(spread);
+    workViewStory.append(spread, pageCredit());
     workView?.classList.add("is-portraits", "is-story");
     workViewStory.hidden = false;
     return;
@@ -404,14 +538,21 @@ function openWork(tile) {
     workViewImg.style.objectFit = "";
   }
   const title = tile.dataset.title || "";
+  const labName = tile.dataset.name || "";
   if (workViewText) workViewText.textContent = tileCaption(tile);
   if (workViewTitle) {
     workViewTitle.textContent = title;
     workViewTitle.hidden = !title;
   }
   workView.classList.toggle("is-project", Boolean(title));
-  fillStory(tile);
-  workView.setAttribute("aria-labelledby", title ? "work-view-title" : "work-view-text");
+  workView.classList.toggle("is-lab-note", Boolean(labName));
+  if (tile.dataset.layout === "lab") fillLabSheet(tile);
+  else fillStory(tile);
+  if (labName && workViewTitle) {
+    workViewTitle.textContent = labName;
+    workViewTitle.hidden = false;
+  }
+  workView.setAttribute("aria-labelledby", title || labName ? "work-view-title" : "work-view-text");
   setWorkLead(tile);
   workView.hidden = false;
   document.body.classList.add("is-work-open");
@@ -429,7 +570,7 @@ function closeWork(options = {}) {
     workViewImg.alt = "";
     workViewImg.style.objectFit = "";
   }
-  workView.classList.remove("is-project");
+  workView.classList.remove("is-project", "is-lab-note");
   clearStory();
   workView.setAttribute("aria-labelledby", "work-view-text");
   if (workViewTitle) {

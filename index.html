@@ -12,7 +12,7 @@
       type="font/otf"
       crossorigin
     />
-    <link rel="stylesheet" href="src/style.css?v=43" />
+    <link rel="stylesheet" href="src/style.css?v=90" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -213,21 +213,88 @@
           <div class="work-shell">
             <h1 class="display" data-text="lab."><span class="display__hires"><span class="display__mark">lab.</span></span></h1>
             <div class="work-grid">
-              <button class="work-tile" type="button" aria-haspopup="dialog" data-caption="Cyanotype, botanical impressions created using a photographic process that uses light sensitive chemical coating.">
+              <button class="work-tile" type="button" aria-haspopup="dialog" data-layout="lab" data-name="imprints" data-tag="alternative photographic printing" data-caption="a series of material studies exploring how light, exposure and surface conditions influence image formation through cyanotype printing. variations in duration, layering, contact and substrate produce different tonal, textural and visual outcomes, opening possibilities for its application across materials and forms.">
                 <img src="labcover1.png" alt="Cyanotype impression on graph paper" />
-                <span class="work-tile__lead" hidden>we experiment with <strong>surfaces</strong></span>
+                <img class="work-tile__extra" data-place="hero" src="lab1/a.png" alt="Cyanotype print of a plant" hidden />
+                <img class="work-tile__extra" data-place="row" data-note="washing off the chemicals from the surface" src="lab1/b.jpg" alt="Washing a cyanotype print on a red surface" hidden />
+                <img class="work-tile__extra" data-place="row" data-note="variables- sunlight duration and surfaces. exposure duration- varied" src="lab1/c.jpg" alt="Cyanotype studies across different surfaces" hidden />
+                <img class="work-tile__extra" data-place="row" data-note="exposure duration- 5 minutes" src="lab1/d.jpg" alt="Fern exposed on paper laid over moss" hidden />
+                <div class="lab-specs" hidden aria-hidden="true">
+                  <p class="lab-specs__heading">material composition</p>
+                  <p class="lab-specs__line"><span>i. ferric ammonium citrate</span><span>solution a - 25 g / 100 ml water</span></p>
+                  <p class="lab-specs__line"><span>ii. potassium ferricyanide</span><span>solution b - 10 g / 100 ml water</span></p>
+                  <p class="lab-specs__line"><span>iii. working solution</span><span>a + b - 1:1 by volume</span></p>
+                  <p class="lab-specs__line"><span>exposure</span><span>- uv light</span></p>
+                  <p class="lab-specs__line"><span>substrate</span><span>- közögami tissues, thin ply, 180 gsm paper, cotton fabric, linen, tissue</span></p>
+                  <p class="lab-specs__line"><span>finish</span><span>- pale cyan to deep prussian blue prints</span></p>
+                </div>
               </button>
-              <button class="work-tile" type="button" aria-haspopup="dialog" data-caption="This is an Olfactory device that is intended to induce a scent to create an enhanced experience while viewing an artifact.">
+              <button class="work-tile" type="button" aria-haspopup="dialog" data-layout="lab" data-sheet="scent" data-name="scent index" data-tag="olfactory interface">
                 <img src="labcover2.png" alt="White sensory device releasing vapor" />
-                <span class="work-tile__lead" hidden>we develop <strong>interactive devices</strong></span>
+                <img class="work-tile__extra" data-place="hero" src="lab2/olfactory001.png" alt="Olfactory device releasing scent" hidden />
+                <div class="lab-copy" hidden aria-hidden="true">
+                  <p>an interactive olfactory device designed to introduce scent as an additional layer of information when viewing an artefact.</p>
+                  <p>it aims to deepen understanding by connecting an object with the smells associated with its material, origin, environment or history.</p>
+                </div>
+                <div class="lab-foot" hidden aria-hidden="true">
+                  <p>the device responds to visitor interaction, releasing a controlled amount of fragrance through its multiple outlets. a replaceable scent cartridge and micro-diffusion system allow different fragrances to be assigned to different artefacts. soft internal illumination indicates activation, making scent an intentional part of the exhibition experience rather than ambient fragrance.</p>
+                  <img src="lab2/olfactory0012.png" alt="Olfactory device with illuminated outlets" />
+                </div>
               </button>
-              <button class="work-tile" type="button" aria-haspopup="dialog" data-caption="Inducing transformational abilities in simple materials as a result of geometric pattern, cut or carved out.">
+              <button class="work-tile" type="button" aria-haspopup="dialog" data-layout="lab" data-sheet="samples" data-name="pattern as mechanism" data-tag="geometry driven material behaviour- kirigami, origami and mechanical metamaterials">
                 <img src="labcover3.png" alt="Woven metal material sample" />
-                <span class="work-tile__lead" hidden>we research <strong>materials</strong></span>
+                <div class="lab-samples" hidden aria-hidden="true">
+                  <div class="lab-samples__pair">
+                    <img src="lab3/2a.jpeg" alt="White folded paper tiles" />
+                    <img src="lab3/4a.jpeg" alt="Stitched concentric circles on white fabric" />
+                  </div>
+                  <div class="lab-samples__pair">
+                    <img src="lab3/1a.jpeg" alt="Woven metal sheet" />
+                    <img src="lab3/8a.jpeg" alt="White folded strip weave" />
+                  </div>
+                  <div class="lab-samples__split">
+                    <img src="lab3/6a.jpeg" alt="Magenta woven sheet" />
+                    <div class="lab-samples__stack">
+                      <img src="lab3/5a.jpeg" alt="Purple folded square" />
+                      <img src="lab3/7a.jpeg" alt="Brown woven and perforated sheets" />
+                    </div>
+                  </div>
+                  <div class="lab-samples__pair">
+                    <img src="lab3/9a.jpeg" alt="Beige woven textile" />
+                    <img src="lab3/3a.jpeg" alt="Brown board with vertical slits" />
+                  </div>
+                </div>
+                <div class="lab-copy" hidden aria-hidden="true">
+                  <p>how might a flat sheet be transformed into a responsive spatial system, where its pattern determines how it moves, stretches, bends, supports weight and interacts with its environment?</p>
+                  <p>an exploration of how patterns, cuts, perforations and folds can transform flat sheets into flexible, expandable, deformable and three dimensional structures. the samples show how changing geometric configurations alters the physical behaviour of materials across paper, board and metal.</p>
+                </div>
+                <div class="lab-notes" hidden aria-hidden="true">
+                  <p class="lab-notes__mark">cut , fold , transform</p>
+                  <div class="lab-specs">
+                    <p class="lab-specs__heading">Potential uses</p>
+                    <p class="lab-specs__line"><span>architecture:</span><span>adaptive facades, deployable partitions, kinetic shading and lightweight structures.</span></p>
+                    <p class="lab-specs__line"><span>product design:</span><span>expandable packaging, furniture, flexible components and transformable objects.</span></p>
+                    <p class="lab-specs__line"><span>wearables:</span><span>materials that conform, stretch or respond to body movement.</span></p>
+                    <p class="lab-specs__line"><span>interactive installations:</span><span>surfaces that change form through touch, pressure or movement.</span></p>
+                    <p class="lab-specs__line"><span>environmental systems:</span><span>adjustable porosity for ventilation, filtration and light modulation.</span></p>
+                  </div>
+                </div>
               </button>
-              <button class="work-tile" type="button" aria-haspopup="dialog" data-caption="Furniture and objects explore the use of materials such as aluminum and leather. They come together to create functional objects.">
+              <button class="work-tile" type="button" aria-haspopup="dialog" data-layout="lab" data-sheet="trio" data-name="object 001" data-tag="seating from elsewhere">
                 <img src="labcover4.png" alt="Soft form suspended between rigid planes" />
-                <span class="work-tile__lead" hidden>we make <strong>objects</strong></span>
+                <img class="work-tile__extra" data-place="hero" src="lab4/a.png" alt="Two red seats in a concrete room beneath a cloud" hidden />
+                <img class="work-tile__extra" data-place="row" src="lab4/b.png" alt="Concrete wall meeting the floor" hidden />
+                <img class="work-tile__extra" data-place="row" src="lab4/c.png" alt="Red upholstered seat held in a metal frame" hidden />
+                <img class="work-tile__extra" data-place="row" src="lab4/d.png" alt="Cloud form against a concrete wall" hidden />
+                <div class="lab-copy" hidden aria-hidden="true">
+                  <p>elsewhere is an ongoing collection of furniture, objects and spatial explorations.</p>
+                  <p>each study investigates form, material and function through independent design explorations.</p>
+                  <p>object 001 explores the contrast between padded forms and rigid structures. two upholstered volumes are held within upright metal panels, creating a seating object that balances softness with restraint. the metal defines the form, while the upholstery introduces volume and irregularity.</p>
+                  <p class="lab-copy__heading">materials and finish</p>
+                  <p>Deep carmine red, high-gloss leather or pu-coated upholstery over high-density foam, contrasted with fabricated stainless steel panels in a brushed satin finish.</p>
+                  <p class="lab-copy__heading">design approach</p>
+                  <p>the red upholstery introduces a warm, almost organic quality through its glossy surface and gathered folds. In contrast, the metal provides a cold, reflective and sharply defined structure. the relationship between the two materials is central to the object. the study examines how soft forms respond to physical boundaries, and how material contrast can define an object's identity.</p>
+                </div>
               </button>
             </div>
           </div>
@@ -281,8 +348,8 @@
               <img class="work-view__img" alt="" />
             </div>
             <div class="work-view__copy">
-              <p class="work-view__lead" id="work-view-lead" hidden></p>
               <p class="work-view__title" id="work-view-title" hidden></p>
+              <p class="work-view__lead" id="work-view-lead" hidden></p>
               <p class="work-view__text" id="work-view-text"></p>
             </div>
           </div>
@@ -290,6 +357,6 @@
       </main>
     </div>
 
-    <script type="module" src="src/main.js?v=41"></script>
+    <script type="module" src="src/main.js?v=51"></script>
   </body>
 </html>
